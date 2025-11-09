@@ -232,6 +232,26 @@
       .cta-row{ justify-content: center; }
     }
 
+
+    @media (max-width: 520px) {
+  :root {
+    --phone-width: 120px;
+    --laptop-width: 180px;
+  }
+
+  .devices {
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .device.phone { width: var(--phone-width); }
+  .device.laptop { width: var(--laptop-width); }
+
+  .devices .device { flex: 0 0 auto; } /* чтобы размеры по переменным применялись */
+}
+
+
     /* ===== Download Section ===== */
     .download {
       margin-top: 60px;
