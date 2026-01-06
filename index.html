@@ -17,7 +17,7 @@
       --card: #222;
       --muted: #bbb;
       --accent: #2d8cff;
-      --phone-width: 170px; /* меняйте размеры тут */
+      --phone-width: 170px; 
       --laptop-width: 420px;
     }
 
@@ -37,7 +37,24 @@
       background-color: var(--bg);
     }
 
-    /* ===== Logo intro ===== */
+    .lang-switch {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 200;
+    }
+
+    .lang-btn {
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+    }
+
     .logo-screen {
       position: fixed;
       top: 0;
@@ -62,7 +79,6 @@
       opacity: 0;
     }
 
-    /* ===== Main content ===== */
     .main-content {
       opacity: 0;
       transform: translateY(50px);
@@ -91,7 +107,6 @@
       font-size: 1.05rem;
     }
 
-    /* ===== Hero: logo + devices ===== */
     .hero {
       display: flex;
       align-items: center;
@@ -130,8 +145,6 @@
       cursor: pointer;
       border: none;
     }
-
-    /* ===== Devices wrapper ===== */
     .devices{
       display: flex;
       gap: 18px;
@@ -145,8 +158,6 @@
       position: relative;
       user-select: none;
     }
-
-    /* Phone mockup */
     .device.phone{
       width: var(--phone-width);
       border-radius: 26px;
@@ -175,7 +186,6 @@
       display: block;
     }
 
-    /* tiny notch / speaker */
     .device.phone::before{
       content: '';
       position: absolute;
@@ -188,7 +198,6 @@
       background: rgba(255,255,255,0.04);
     }
 
-    /* Laptop mockup */
     .device.laptop{
       width: var(--laptop-width);
       border-radius: 12px;
@@ -220,8 +229,6 @@
       background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border-radius: 6px;
     }
-
-    /* small screens: stack and reduce sizes */
     @media (max-width: 900px){
       :root{ --laptop-width: 320px; }
       .hero-left{ text-align: center; }
@@ -243,8 +250,8 @@
     flex-wrap: nowrap;
     justify-content: center;
     gap: 10px;
-    padding: 0 12px; /* <-- вот это добавляет "воздух" слева и справа */
-    box-sizing: border-box; /* на всякий случай, чтобы padding не ломал ширину */
+    padding: 0 12px; 
+    box-sizing: border-box; 
   }
 
   .device.phone { width: var(--phone-width); }
@@ -253,8 +260,6 @@
   .devices .device { flex: 0 0 auto; }
 }
 
-
-    /* ===== Download Section ===== */
     .download {
       margin-top: 60px;
       display: flex;
@@ -300,7 +305,6 @@
       height: 24px;
     }
 
-    /* ===== Why Us Section ===== */
     .why {
       margin-top: 100px;
       text-align: center;
@@ -356,8 +360,6 @@
       font-size: 0.95rem;
       line-height: 1.4;
     }
-
-    /* ===== Footer ===== */
     footer {
       margin-top: 100px;
       padding: 40px 0;
@@ -380,7 +382,6 @@
     footer a:hover {
       text-decoration: underline;
     }
-    /* ===== Platform button hover animation ===== */
 .platform {
   position: relative;
   overflow: hidden;
@@ -448,6 +449,11 @@
 <body>
   <div class="container">
 
+
+    <div class="lang-switch">
+      <button id="langBtn" class="lang-btn" aria-label="Переключить язык">EN</button>
+    </div>
+
     <div class="logo-screen">
       <video autoplay playsinline muted>
         <source src="assets/logo.webm" type="video/webm" />
@@ -459,16 +465,14 @@
       <header>
         <div class="logo">
           <img src="assets/logo_h.svg" alt="OFFLAG logo">
-          <p class="text">Ничего лишнего: скорость, безопасность, выгода.</p>
+          <p class="text" data-i18n="tagline">Ничего лишнего: скорость, безопасность, выгода.</p>
         </div>
 
-        <!-- HERO: logo + devices -->
         <div class="hero">
           <div class="hero-left">
             
           <div class="devices" aria-hidden="false">
-            <!-- Phone mockup: если хотите заменить GIF на WebM, используйте тег <video autoplay loop muted playsinline> -->
-            <div class="device phone" role="img" aria-label="Превью приложения на телефоне">
+            <div class="device phone" role="img" aria-label="Preview on phone" data-i18n-aria-label="phonePreview">
               <div class="screen">
                 <video autoplay loop muted playsinline>
                         <source src="assets/app-demo-phone.mp4" type="video/mp4" />
@@ -477,8 +481,7 @@
               </div>
             </div>
 
-            <!-- Laptop mockup -->
-            <div class="device laptop" role="img" aria-label="Превью приложения на ноутбуке">
+            <div class="device laptop" role="img" aria-label="Preview on laptop" data-i18n-aria-label="laptopPreview">
               <div class="screen">
                     <video autoplay loop muted playsinline>
                         <source src="assets/app-demo-laptop.mp4" type="video/mp4" />
@@ -493,67 +496,154 @@
       </header>
 
       <section class="download">
-        <h2>Скачать OFFLAG</h2>
+        <h2 data-i18n="downloadHeading">Скачать OFFLAG</h2>
         <div class="platforms">
-          <div class="platform"><img src="assets/ios.png" alt="iPhone"> iPhone / iPad</div>
-          <div class="platform"><img src="assets/android.png" alt="Android"> Android</div>
-          <div class="platform"><img src="assets/macos.png" alt="MacOS"> macOS</div>
-          <div class="platform"><img src="assets/windows.png" alt="Windows"> Windows</div>
-          <div class="platform"><img src="assets/linux.png" alt="Linux"> Linux</div>
+          <div class="platform" data-i18n="platform_iphone"><img src="assets/ios.png" alt="iPhone"> iPhone / iPad</div>
+          <div class="platform" data-i18n="platform_android"><img src="assets/android.png" alt="Android"> Android</div>
+          <div class="platform" data-i18n="platform_macos"><img src="assets/macos.png" alt="MacOS"> macOS</div>
+          <div class="platform" data-i18n="platform_windows"><img src="assets/windows.png" alt="Windows"> Windows</div>
+          <div class="platform" data-i18n="platform_linux"><img src="assets/linux.png" alt="Linux"> Linux</div>
         </div>
       </section>
 
       <section class="why">
-        <h2>Почему именно мы?</h2>
+        <h2 data-i18n="whyHeading">Почему именно мы?</h2>
         <div class="why-grid">
           <div class="why-item">
             <img src="assets/gift.png" alt="Подарок">
-            <h3>14 дней бесплатно</h3>
-            <p>Каждому — 14 дней в подарок при регистрации. Без привязки карт, без подвохов.</p>
+            <h3 data-i18n="f1_title">14 дней бесплатно</h3>
+            <p data-i18n="f1_text">Каждому — 14 дней в подарок при регистрации. Без привязки карт, без подвохов.</p>
           </div>
           <div class="why-item">
             <img src="assets/money.png" alt="Цена">
-            <h3>2 рубля в день</h3>
-            <p>Никаких тарифных ловушек. Просто дешёво, удобно и для всех.</p>
+            <h3 data-i18n="f2_title">2 рубля в день</h3>
+            <p data-i18n="f2_text">Никаких тарифных ловушек. Просто дешёво, удобно и для всех.</p>
           </div>
           <div class="why-item">
             <img src="assets/server.png" alt="Сервер">
-            <h3>Умный выбор сервера</h3>
-            <p>Автоматически подключаем к серверу с минимальной нагрузкой и пингом.</p>
+            <h3 data-i18n="f3_title">Умный выбор сервера</h3>
+            <p data-i18n="f3_text">Автоматически подключаем к серверу с минимальной нагрузкой и пингом.</p>
           </div>
           <div class="why-item">
             <img src="assets/devices.png" alt="Устройства">
-            <h3>1 аккаунт — несколько устройств</h3>
-            <p>Используй OFFLAG на телефоне, ноутбуке и даже роутере.</p>
+            <h3 data-i18n="f4_title">1 аккаунт — несколько устройств</h3>
+            <p data-i18n="f4_text">Используй OFFLAG на телефоне, ноутбуке и даже роутере.</p>
           </div>
           <div class="why-item">
             <img src="assets/speed.png" alt="Скорость">
-            <h3>Максимальная скорость</h3>
-            <p>Сервис, который не тормозит. Держим канал на уровне.</p>
+            <h3 data-i18n="f5_title">Максимальная скорость</h3>
+            <p data-i18n="f5_text">Сервис, который не тормозит. Держим канал на уровне.</p>
           </div>
           <div class="why-item">
             <img src="assets/security.png" alt="Безопасность">
-            <h3>Полная защита</h3>
-            <p>Строгая политика без логов. Фильтрация трафика.</p>
+            <h3 data-i18n="f6_title">Полная защита</h3>
+            <p data-i18n="f6_text">Строгая политика без логов. Фильтрация трафика.</p>
           </div>
         </div>
       </section>
 
       <footer>
         <img src="assets/logo_h.svg" alt="OFFLAG logo">
-        <p>© 2025 OFFLAG — Все права защищены</p>
-        <p>Связаться с нами: <a href="mailto:support@offlag.com">support@offlag.com</a></p>
+        <p>© 2025 OFFLAG — <span data-i18n="rights">Все права защищены</span></p>
+        <p><span data-i18n="contact">Связаться с нами:</span> <a href="mailto:support-offlag#sharp-mail.space">support-offlag#sharp-mail.space</a></p>
       </footer>
     </div>
   </div>
 
   <script>
+    const translations = {
+      ru: {
+        tagline: 'Ничего лишнего: скорость, безопасность, выгода.',
+        downloadHeading: 'Скачать OFFLAG',
+        platform_iphone: 'iPhone / iPad',
+        platform_android: 'Android',
+        platform_macos: 'macOS',
+        platform_windows: 'Windows',
+        platform_linux: 'Linux',
+        whyHeading: 'Почему именно мы?',
+        f1_title: '14 дней бесплатно',
+        f1_text: 'Каждому — 14 дней в подарок при регистрации. Без привязки карт, без подвохов.',
+        f2_title: '2 рубля в день',
+        f2_text: 'Никаких тарифных ловушек. Просто дешёво, удобно и для всех.',
+        f3_title: 'Умный выбор сервера',
+        f3_text: 'Автоматически подключаем к серверу с минимальной нагрузкой и пингом.',
+        f4_title: '1 аккаунт — несколько устройств',
+        f4_text: 'Используй OFFLAG на телефоне, ноутбуке и даже роутере.',
+        f5_title: 'Максимальная скорость',
+        f5_text: 'Сервис, который не тормозит. Держим канал на уровне.',
+        f6_title: 'Полная защита',
+        f6_text: 'Строгая политика без логов. Фильтрация трафика.',
+        rights: 'Все права защищены',
+        contact: 'Связаться с нами:',
+        phonePreview: 'Превью приложения на телефоне',
+        laptopPreview: 'Превью приложения на ноутбуке'
+      },
+      en: {
+        tagline: 'No nonsense: speed, security, value.',
+        downloadHeading: 'Download OFFLAG',
+        platform_iphone: 'iPhone / iPad',
+        platform_android: 'Android',
+        platform_macos: 'macOS',
+        platform_windows: 'Windows',
+        platform_linux: 'Linux',
+        whyHeading: 'Why choose OFFLAG?',
+        f1_title: '14 days free',
+        f1_text: 'Everyone gets 14 days free after sign-up. No card needed, no tricks.',
+        f2_title: '2 RUB per day',
+        f2_text: 'No tariff traps. Just cheap, simple and for everyone.',
+        f3_title: 'Smart server choice',
+        f3_text: 'We automatically connect you to the server with the lowest load and ping.',
+        f4_title: '1 account — multiple devices',
+        f4_text: 'Use OFFLAG on your phone, laptop and even router.',
+        f5_title: 'Top speed',
+        f5_text: 'A service that doesn\'t slow you down. We maintain the channel.',
+        f6_title: 'Full protection',
+        f6_text: 'Strict no-logs policy. Traffic filtering.',
+        rights: 'All rights reserved',
+        contact: 'Contact us:',
+        phonePreview: 'App preview on phone',
+        laptopPreview: 'App preview on laptop'
+      }
+    };
+
+    function applyTranslations(lang){
+      document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria-label');
+        if(translations[lang] && translations[lang][key]) el.setAttribute('aria-label', translations[lang][key]);
+      });
+      const btn = document.getElementById('langBtn');
+      btn.textContent = lang === 'ru' ? 'EN' : 'RU'; 
+      btn.setAttribute('aria-label', lang === 'ru' ? 'Switch to English' : 'Переключить на русский');
+      try{ localStorage.setItem('offlag-lang', lang); }catch(e){/* no-op */}
+    }
+
+    function preferredLang(){
+      try{
+        const saved = localStorage.getItem('offlag-lang');
+        if(saved) return saved === 'ru' ? 'ru' : 'en';
+      }catch(e){/* no-op */}
+      const nav = navigator.language || navigator.userLanguage || 'ru';
+      return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+    }
     window.addEventListener("DOMContentLoaded", () => {
       const logoScreen = document.querySelector(".logo-screen");
       const mainContent = document.querySelector(".main-content");
       const video = document.querySelector(".logo-screen video");
+      const langBtn = document.getElementById('langBtn');
+      let lang = preferredLang();
+      applyTranslations(lang);
 
-      // Если видео отсутствует или не поддерживается — пропускаем заставку
+      langBtn.addEventListener('click', () => {
+        lang = (lang === 'ru') ? 'en' : 'ru';
+        applyTranslations(lang);
+      });
+
       if(!video){
         logoScreen.classList.add('hide');
         mainContent.classList.add('show');
@@ -570,8 +660,6 @@
           initObservers();
         }, 1500);
       });
-
-      // safety: если видео не может автоматически воспроизвестись, добавим таймаут
       setTimeout(() => {
         if(!mainContent.classList.contains('show')){
           logoScreen.classList.add('hide');
