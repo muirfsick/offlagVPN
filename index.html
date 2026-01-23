@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OFFLAG</title>
+
+  <meta name="description" content="OFFLAG - быстрый и безопасный ускоритель интернет-соединения. Удобное приложение. Выгодный тариф для всех. ">
+  <meta property="og:title" content="OFFLAG">
+  <meta property="og:description" content="Быстрый и безопасный ускоритель интернета.">
+  <meta property="og:image" content="assets/app_icon.ico">
+  <meta property="og:type" content="website">
+
   <link rel="icon" href="assets/app_icon.ico" type="image/x-icon">
   <style>
     body {
@@ -186,6 +193,12 @@
       object-fit: cover;
       display: block;
     }
+
+    .device.phone .screen{
+      aspect-ratio: 9 / 19.5;
+      height: auto;
+    }
+
 
     .device.phone::before{
       content: '';
@@ -448,6 +461,104 @@
   box-shadow: 0 6px 24px rgba(0,0,0,0.5), inset 0 0 4px rgba(255,255,255,0.05);
 }
 
+.why-demo {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto 70px;
+  padding: 0 20px;
+}
+
+/* Видео слева */
+.demo-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow:
+    0 12px 32px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.demo-frame video {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Текст справа */
+.why-demo-text {
+  text-align: left;
+}
+
+.why-demo-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+}
+
+.why-demo-text p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.demo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+
+.premium {
+  margin-top: 120px;
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(45,140,255,0.06),
+    rgba(45,140,255,0.02)
+  );
+  border-top: 1px solid rgba(45,140,255,0.15);
+}
+
+.premium h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.premium-text {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+
+
+
+@media (max-width: 768px) {
+  .why-demo {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .why-demo-text {
+    text-align: center;
+  }
+}
+
+
+
+
   </style>
 </head>
 <body>
@@ -477,19 +588,13 @@
           <div class="devices" aria-hidden="false">
             <div class="device phone" role="img" aria-label="Preview on phone" data-i18n-aria-label="phonePreview">
               <div class="screen">
-                <video autoplay loop muted playsinline>
-                        <source src="assets/app-demo-phone.mp4" type="video/mp4" />
-                            Ваш браузер не поддерживает видео.
-                    </video>
+                    <img src="assets/phone.jpg" alt="offlag pic" class="offlagPhone">
               </div>
             </div>
 
             <div class="device laptop" role="img" aria-label="Preview on laptop" data-i18n-aria-label="laptopPreview">
               <div class="screen">
-                    <video autoplay loop muted playsinline>
-                        <source src="assets/app-demo-laptop.mp4" type="video/mp4" />
-                            Ваш браузер не поддерживает видео.
-                    </video>
+                    <img src="assets/pc.png" alt="offlag PC">
               </div>
               <div class="base" aria-hidden="true"></div>
             </div>
@@ -503,19 +608,38 @@
         <div class="platforms">
           <div class="platform"><img src="assets/ios.png" alt="iPhone"> <span data-i18n="platform_iphone">iPhone / iPad</span></div>
           <div class="platform"><img src="assets/android.png" alt="Android"> <span data-i18n="platform_android">Android</span></div>
-          <div class="platform"><img src="assets/macos.png" alt="MacOS"> <span data-i18n="platform_macos">macOS</span></div>
           <div class="platform"><img src="assets/windows.png" alt="Windows"> <span data-i18n="platform_windows">Windows</span></div>
-          <div class="platform"><img src="assets/linux.png" alt="Linux"> <span data-i18n="platform_linux">Linux</span></div>
         </div>
       </section>
 
       <section class="why">
         <h2 data-i18n="whyHeading">Почему именно мы?</h2>
+
+        <div class="why-demo">
+        <div class="why-demo-video">
+          <div class="demo-frame">
+            <div class="demo-frame">
+                <img src="assets/123.gif" alt="Демонстрация работы OFFLAG">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="why-demo-text">
+          <h3 data-i18n="whyHead">Как работает OFFLAG</h3>
+          <p data-i18n="whyText">
+            Просто открыл приложение — и оно само подключилось
+            к самому быстрому серверу без лишних действий.
+          </p>
+        </div>
+      </div>
+
+
         <div class="why-grid">
           <div class="why-item">
             <img src="assets/gift.png" alt="Подарок">
             <h3 data-i18n="f1_title">14 дней бесплатно</h3>
-            <p data-i18n="f1_text">Каждому — 14 дней в подарок при регистрации. Без привязки карт, без подвохов.</p>
+            <p data-i18n="f1_text">Каждому — 14 дней в подарок. Без привязки карт, без подвохов.</p>
           </div>
           <div class="why-item">
             <img src="assets/money.png" alt="Цена">
@@ -545,10 +669,19 @@
         </div>
       </section>
 
+      <section class="premium">
+      <h2>OFFLAG PREMIUM</h2>
+
+      <p class="premium-text" data-i18n="premium_text">
+        Мы можем выделить отдельный сервис специально для вас и ваших близких.
+        Чтобы подключить OFFLAG PREMIUM, напишите в поддержку прямо в приложении.
+      </p>
+    </section>
+
+
       <footer>
         <img src="assets/logo_h.svg" alt="OFFLAG logo">
         <p>© 2025 OFFLAG — <span data-i18n="rights">Все права защищены</span></p>
-        <p><span data-i18n="contact">Связаться с нами:</span> <a href="mailto:support-offlag#sharp-mail.space">support-offlag#sharp-mail.space</a></p>
       </footer>
     </div>
   </div>
@@ -565,13 +698,13 @@
         platform_linux: 'Linux',
         whyHeading: 'Почему именно мы?',
         f1_title: '14 дней бесплатно',
-        f1_text: 'Каждому — 14 дней в подарок при регистрации. Без привязки карт, без подвохов.',
+        f1_text: 'Каждому — 14 дней в подарок. Без привязки карт, без подвохов.',
         f2_title: '2 рубля в день',
         f2_text: 'Никаких тарифных ловушек. Просто дешёво, удобно и для всех.',
         f3_title: 'Умный выбор сервера',
         f3_text: 'Автоматически подключаем к серверу с минимальной нагрузкой и пингом.',
         f4_title: '1 аккаунт — несколько устройств',
-        f4_text: 'Используй OFFLAG на телефоне, ноутбуке и даже роутере.',
+        f4_text: 'Используй OFFLAG на телефоне, ноутбуке и компьютере.',
         f5_title: 'Максимальная скорость',
         f5_text: 'Сервис, который не тормозит. Держим канал на уровне.',
         f6_title: 'Полная защита',
@@ -579,7 +712,11 @@
         rights: 'Все права защищены',
         contact: 'Связаться с нами:',
         phonePreview: 'Превью приложения на телефоне',
-        laptopPreview: 'Превью приложения на ноутбуке'
+        laptopPreview: 'Превью приложения на ноутбуке',
+        whyHead: "Как работает OFFLAG",
+        whyText: "У нас есть удобное приложение. Пополняйте баланс на любую сумму внутри приложения или используйте промокод. Мы не собираем личные данные. Для регистрации не требуется номер телефона.",
+        premium_text: 'Мы можем выделить отдельный сервер специально для вас и ваших близких. Чтобы подключить OFFLAG PREMIUM, напишите в поддержку прямо в приложении.',
+
       },
       en: {
         tagline: 'No nonsense: speed, security, value.',
@@ -591,13 +728,13 @@
         platform_linux: 'Linux',
         whyHeading: 'Why choose OFFLAG?',
         f1_title: '14 days free',
-        f1_text: 'Everyone gets 14 days free after sign-up. No card needed, no tricks.',
+        f1_text: 'Everyone gets 14 days free. No card needed, no tricks.',
         f2_title: '2 RUB per day',
         f2_text: 'No tariff traps. Just cheap, simple and for everyone.',
         f3_title: 'Smart server choice',
         f3_text: 'We automatically connect you to the server with the lowest load and ping.',
         f4_title: '1 account — multiple devices',
-        f4_text: 'Use OFFLAG on your phone, laptop and even router.',
+        f4_text: 'Use OFFLAG on your phone, laptop.',
         f5_title: 'Top speed',
         f5_text: 'A service that doesn\'t slow you down. We maintain the channel.',
         f6_title: 'Full protection',
@@ -605,7 +742,11 @@
         rights: 'All rights reserved',
         contact: 'Contact us:',
         phonePreview: 'App preview on phone',
-        laptopPreview: 'App preview on laptop'
+        laptopPreview: 'App preview on laptop',
+        whyHead: "How OFFLAG works",
+        whyText: "We have a convenient app. Top up your balance with any amount within the app or use a promo code. We don't collect personal data. No phone number is required for registration.",
+        premium_text: 'We can provide a dedicated server specifically for you and your loved ones. To enable OFFLAG PREMIUM, contact support directly in the app.',
+
       }
     };
 
