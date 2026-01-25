@@ -1033,46 +1033,41 @@
   </script>
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-  (function () {
+  document.addEventListener("DOMContentLoaded", function(){
   emailjs.init("27n2b0ljEgXueB833");
-    document.getElementById("supportForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const emailField = this.email;
-  const messageField = this.message;
-  emailField.style.borderColor = "#333";
-  messageField.style.borderColor = "#333";
-  const email = emailField.value.trim();
-  const message = messageField.value.trim();
-  let valid = true;
 
-  if (!email) {
-    emailField.style.borderColor = "red";
-    valid = false;
-  }
-  if (!message) {
-    messageField.style.borderColor = "red";
-    valid = false;
-  }
-  if (!valid) {
-    alert("Пожалуйста, заполните все поля.");
-    return;
-  }
-  emailjs.sendForm(
-    "service_3337x3w",
-    "template_uv92l9x",
-    this
-  ).then(
-    () => {
-      alert("Сообщение отправлено");
-      this.reset(); // очищаем форму
-    },
-    err => alert("Ошибка: " + err.text)
-  );
-});
-document.getElementById("supportForm").addEventListener("input", function(e) {
-  if (e.target.value.trim() !== "") {
-    e.target.style.borderColor = "#333";
-  }
+  const form = document.getElementById("supportForm");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const emailField = this.email;
+    const messageField = this.message;
+    emailField.style.borderColor = "#333";
+    messageField.style.borderColor = "#333";
+
+    const email = emailField.value.trim();
+    const message = messageField.value.trim();
+    if(!email || !message){
+      if(!email) emailField.style.borderColor="red";
+      if(!message) messageField.style.borderColor="red";
+      alert("Пожалуйста, заполните все поля.");
+      return;
+    }
+
+    emailjs.sendForm("service_3337x3w", "template_uv92l9x", this)
+      .then(() => {
+        alert("Сообщение отправлено!");
+        this.reset();
+      })
+      .catch((err) => {
+        console.log("Ошибка EmailJS:", err);
+        alert("Ошибка отправки! Проверь консоль.");
+      });
+  });
+
+  form.addEventListener("input", function(e){
+    if(e.target.value.trim() !== "") e.target.style.borderColor = "#333";
+  });
 });
 
 </script>
