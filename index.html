@@ -677,6 +677,65 @@
   margin-top: 8px;
 }
 
+.whats-new-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+.whats-new-btn:hover { color: #cbd6e6; }
+
+
+.whats-new-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 10%;
+  bottom: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  background: rgba(0,0,0,0.6);
+  padding: 20px;
+  box-sizing: border-box;
+}
+.whats-new-panel-inner {
+  width: min(920px, 96%);
+  max-height: 86%;
+  overflow: auto;
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #ddd;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.whats-new-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.whats-new-header h3 { margin:0; font-size:1.15rem; color:#fff; }
+.whats-new-close {
+  background:transparent;
+  border:none;
+  color:#aaa;
+  font-size:1.1rem;
+  cursor:pointer;
+}
+.version-item { padding:12px 10px; border-radius:8px; margin-bottom:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.02); }
+.version-item.current { box-shadow:0 6px 18px rgba(45,140,255,0.08); border-color: rgba(45,140,255,0.12); }
+.version-meta { display:flex; gap:12px; align-items:center; margin-bottom:8px; font-weight:600; color:#fff; }
+.version-meta .v { font-family:monospace; }
+.version-features { color: #bdbdbd; margin-left:8px; }
+
 
 
   </style>
@@ -730,6 +789,20 @@
           <div class="platform"><img src="assets/android.png" alt="Android"> <span data-i18n="platform_android">Android</span></div>
           <div class="platform"><img src="assets/windows.png" alt="Windows"> <span data-i18n="platform_windows">Windows</span></div>
         </div>
+
+        <div class="whats-new-wrap" style="width:100%;text-align:center;margin-top:12px;">
+        <button id="whatsNewBtn" class="whats-new-btn" data-i18n="whats_new_label" aria-expanded="false" aria-controls="whatsNewPanel"></button>
+      </div>
+      <div id="whatsNewPanel" class="whats-new-panel" role="dialog" aria-hidden="true" style="display:none;">
+        <div class="whats-new-panel-inner">
+          <header class="whats-new-header">
+            <h3 id="whatsNewTitle" data-i18n="whats_new_panel_title"></h3>
+            <button id="whatsNewClose" class="whats-new-close" aria-label="Close">✕</button>
+          </header>
+          <div id="whatsNewContent" class="whats-new-content" aria-live="polite"></div>
+        </div>
+      </div>
+
       </section>
 
       <section class="why">
@@ -859,6 +932,66 @@
   </div>
 
   <script>
+  function renderVersions(currentLang){
+    const t = translations[currentLang] || translations['en'];
+    const contentEl = document.getElementById('whatsNewContent');
+    if(!contentEl) return;
+  
+    contentEl.innerHTML = '';
+  
+    const versions = t.whats_new_versions || [];
+    versions.forEach(v => {
+      const item = document.createElement('div');
+      item.className = 'version-item' + (v.current ? ' current' : '');
+  
+      const meta = document.createElement('div');
+      meta.className = 'version-meta';
+      meta.innerHTML = `<span class="v">${v.current ? t.whats_new_current_label + ' · ' : ''}${v.version}</span>
+                        <span class="date">— ${v.date || ''}</span>`;
+      item.appendChild(meta);
+  
+      const ul = document.createElement('ul');
+      ul.className = 'version-features';
+      (v.features || []).forEach(f => {
+        const li = document.createElement('li');
+        li.textContent = f;
+        ul.appendChild(li);
+      });
+  
+      item.appendChild(ul);
+      contentEl.appendChild(item);
+    });
+  }
+  
+  function bindWhatsNewBehaviour(){
+    const btn = document.getElementById('whatsNewBtn');
+    const panel = document.getElementById('whatsNewPanel');
+    const closeBtn = document.getElementById('whatsNewClose');
+  
+    if(!btn || !panel) return;
+  
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      panel.style.display = open ? 'none' : 'flex';
+      panel.setAttribute('aria-hidden', open);
+      btn.setAttribute('aria-expanded', !open);
+    });
+  
+    closeBtn?.addEventListener('click', () => {
+      panel.style.display = 'none';
+      panel.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  
+    panel.addEventListener('click', (e) => {
+      if(e.target === panel){
+        panel.style.display = 'none';
+        panel.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
     const translations = {
       ru: {
         tagline: 'Ничего лишнего: скорость, безопасность, выгода.',
@@ -889,14 +1022,37 @@
         whyText: "У нас есть удобное приложение. Пополняйте баланс на любую сумму внутри приложения или используйте промокод. Мы не собираем личные данные. Для регистрации не требуется номер телефона.",
         premium_text: 'Мы можем выделить отдельный сервер специально для вас и ваших близких. Чтобы подключить OFFLAG PREMIUM, напишите в поддержку ниже.',
         faq_title: "Возможные вопросы",
-        faq_q1: "OFFLAG это VPN?",
-        faq_a1: "OFFLAG это ускоритель соединения. Он оптимизирует маршрут трафика и снижает задержки.",
-        faq_q2: "Нужно ли вводить личные данные?",
-        faq_a2: "Нет. Для использования сервиса не требуется номер телефона или паспортные данные.",
-        faq_q3: "На каких устройствах работает OFFLAG?",
-        faq_a3: "OFFLAG доступен на Android, iOS и Windows. Один аккаунт можно использовать на нескольких устройствах.",
+        faq_q1: 'Поможет ли OFFLAG при блокировках?',
+        faq_a1: 'Да. Мы регулярно отслеживаем случаи блокировок и оперативно обновляем протоколы и правила маршрутизации. Система автоматически подстраивается под текущие ограничения: подбираются альтернативные маршруты и конфигурации, чтобы сохранить доступность сервисов и минимизировать задержки.',
+        faq_q2: 'На Android не работает OFFLAG - что делать?',
+        faq_a2: 'Частая причина - включён DNS в настройках сети. Проверьте настройки сети (Расширенные настройки) и отключите любые кастомные DNS / «Private DNS». После этого перезапустите приложение. Если проблема остаётся - напишите нам в поддержку ниже, укажите модель устройства и краткое описание ошибки.',
+        faq_q3: 'Хочу быть вашим клиентом на macOS или Linux',
+        faq_a3: 'Напишите нам в поддержку ниже - мы поможем настроить подключение и подготовим необходимые инструкции.',
         support_title: "Поддержка",
         support_send: "Отправить",
+                whats_new_label: 'Что нового в последней версии?',
+        whats_new_panel_title: 'История версий и изменения',
+        whats_new_current_label: 'Актуальная версия',
+        whats_new_versions: [
+          {
+            version: '0.26',
+            date: '2025-01-20',
+            features: [
+              'Улучшена устойчивость при блокировках — обновлены протоколы и маршрутизация',
+              'Исправлены проблемы подключения на некоторых Android-устройствах'
+            ],
+            current: true
+          },
+          {
+            version: '1.4.1',
+            date: '2024-12-10',
+            features: [
+              'Оптимизация выбора сервера',
+              'Мелкие багфиксы и улучшения производительности'
+            ],
+            current: false
+          }
+        ],
 
 
       },
@@ -928,15 +1084,38 @@
         whyHead: "How OFFLAG works",
         whyText: "We have a convenient app. Top up your balance with any amount within the app or use a promo code. We don't collect personal data. No phone number is required for registration.",
         premium_text: 'We can provide a dedicated server specifically for you and your loved ones. To enable OFFLAG PREMIUM, contact support.',
-        faq_title: "Frequently asked questions",
-        faq_q1: "Is OFFLAG a VPN?",
-        faq_a1: "OFFLAG is a connection accelerator. It optimizes traffic routing and reduces latency.",
-        faq_q2: "Do I need to provide personal data?",
-        faq_a2: "No. Phone number or personal documents are not required.",
-        faq_q3: "Which devices are supported?",
-        faq_a3: "OFFLAG works on Android, iOS and Windows. One account supports multiple devices.",
+        faq_title: "Frequently asked questions",faq_q1: 'Will OFFLAG help with blocks?',
+        faq_a1: 'Yes. We continuously monitor blocking events and promptly update protocols and routing rules. The system adapts to restrictions automatically — selecting alternative routes and configurations to keep services reachable and to minimize latency.',
+        faq_q2: 'VPN not working on Android - what should I check?',
+        faq_a2: 'A common cause is a custom or private DNS set in the device network settings. Check your Wi-Fi advanced settings and disable any custom DNS / “Private DNS". Restart the app afterwards. If the issue persists, contact support and include your device model and a short error description.',
+        faq_q3: 'I want to be your client on macOS or Linux',
+        faq_a3: 'Contact our support below — we will help you set up the connection and provide the necessary instructions.',
+        
         support_title: "Support",
         support_send: "Send",
+        whats_new_label: "What's new in the latest version?",
+        whats_new_panel_title: 'Version history & changelog',
+        whats_new_current_label: 'Current version',
+        whats_new_versions: [
+          {
+            version: '1.4.2',
+            date: '2025-01-20',
+            features: [
+              'Improved resilience to blocking — updated protocols and routing',
+              'Fixed connection issues on some Android devices'
+            ],
+            current: true
+          },
+          {
+            version: '1.4.1',
+            date: '2024-12-10',
+            features: [
+              'Server selection optimizations',
+              'Minor bug fixes and performance improvements'
+            ],
+            current: false
+          }
+        ],
 
 
       }
@@ -960,6 +1139,19 @@
       btn.textContent = lang === 'ru' ? 'EN' : 'RU'; 
       btn.setAttribute('aria-label', lang === 'ru' ? 'Switch to English' : 'Переключить на русский');
       try{ localStorage.setItem('offlag-lang', lang); }catch(e){/* */}
+
+      const whatsBtn = document.getElementById('whatsNewBtn');
+      if(whatsBtn && translations[lang]?.whats_new_label){
+        whatsBtn.textContent = translations[lang].whats_new_label;
+      }
+      
+      const titleEl = document.getElementById('whatsNewTitle');
+      if(titleEl && translations[lang]?.whats_new_panel_title){
+        titleEl.textContent = translations[lang].whats_new_panel_title;
+      }
+      
+      renderVersions(lang);
+
     }
 
     function preferredLang(){
@@ -1028,8 +1220,13 @@
           btn.parentElement.classList.toggle("active");
         });
       });
+      bindWhatsNewBehaviour();
+      renderVersions(lang);
+
 
     });
+
+    
   </script>
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
