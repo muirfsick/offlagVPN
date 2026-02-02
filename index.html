@@ -691,80 +691,6 @@
 
 
 
-.reviews-section {
-  margin-top: 120px;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.reviews-section h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-}
-
-.reviews-marquee {
-  overflow: hidden;
-  width: 100%;
-  border-radius: 14px;
-}
-
-.reviews-track {
-  display: flex;
-  gap: 20px;
-  width: max-content;
-  animation: scroll 25s linear infinite;
-}
-
-.reviews-marquee:hover .reviews-track {
-  animation-play-state: paused;
-}
-
-.review {
-  min-width: 260px;
-  background: #1c1c1c;
-  border-radius: 14px;
-  padding: 16px;
-  display: flex;
-  gap: 12px;
-  text-align: left;
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-}
-
-.avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: #2d8cff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: #001;
-  flex-shrink: 0;
-}
-
-.name {
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.text {
-  font-size: 0.9rem;
-  color: #bbb;
-}
-
-.stars {
-  margin-top: 6px;
-  color: #f7c948;
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-
   </style>
 </head>
 <body>
@@ -844,8 +770,7 @@
         <div class="why-demo-text">
           <h3 data-i18n="whyHead">Как работает OFFLAG</h3>
           <p data-i18n="whyText">
-            Просто открыл приложение — и оно само подключилось
-            к самому быстрому серверу без лишних действий.
+            Просто открыл приложение — и оно само подключилось без лишних действий.
           </p>
         </div>
       </div>
@@ -902,7 +827,7 @@
           <div class="faq-list">
           <div class="faq-item">
             <button type="button" class="faq-question" data-i18n="faq_q1">
-              OFFLAG это VPN?
+              OFFLAG это ?
             </button>
             <div class="faq-answer" data-i18n="faq_a1">
               OFFLAG это ускоритель соединения. Он оптимизирует маршрут трафика и снижает задержки без лишних действий.
@@ -944,69 +869,7 @@
         </form>
      </section>
 
-     <section class="reviews-section">
-      <h2>Отзывы</h2>
-    
-      <div class="reviews-marquee">
-        <div class="reviews-track">
-          <div class="review">
-            <div class="avatar">А</div>
-            <div>
-              <div class="name">Алексей</div>
-              <div class="text">Просто включил — и всё заработало. Очень быстро.</div>
-              <div class="stars">★★★★★</div>
-            </div>
-          </div>
-    
-          <div class="review">
-            <div class="avatar">М</div>
-            <div>
-              <div class="name">Мария</div>
-              <div class="text">Понравилось, что не просят карту. Удобно.</div>
-              <div class="stars">★★★★★</div>
-            </div>
-          </div>
-    
-          <div class="review">
-            <div class="avatar">И</div>
-            <div>
-              <div class="name">Иван</div>
-              <div class="text">Скорость стабильная, пинг ниже. Раньше платил больше за медленный впн, а тут дешевле и скорость топ, рекомендую.</div>
-              <div class="stars">★★★★☆</div>
-            </div>
-          </div>
-          <div class="review">
-            <div class="avatar">А</div>
-            <div>
-              <div class="name">Алексей</div>
-              <div class="text">Просто включил — и всё заработало. Очень быстро.</div>
-              <div class="stars">★★★★★</div>
-            </div>
-          </div>
-    
-          <div class="review">
-            <div class="avatar">М</div>
-            <div>
-              <div class="name">Мария</div>
-              <div class="text">Понравилось, что не просят карту. Удобно.</div>
-              <div class="stars">★★★★★</div>
-            </div>
-          </div>
-    
-          <div class="review">
-            <div class="avatar">И</div>
-            <div>
-              <div class="name">Иван</div>
-              <div class="text">Скорость стабильная, пинг ниже. Раньше платил больше за медленный впн, а тут дешевле и скорость топ, рекомендую.</div>
-              <div class="stars">★★★★☆</div>
-            </div>
-          </div>
-    
-        </div>
-      </div>
-    </section>
-
-
+     
 
       <footer>
         <img src="assets/logo_h.svg" alt="OFFLAG logo">
@@ -1046,8 +909,8 @@
         whyText: "У нас есть удобное приложение. Мы не собираем личные данные. Для регистрации не требуется номер телефона. Без привязки карт и неожиданных списаний. Тариф - 2 рубля в день. Пополняйте баланс на любую сумму внутри приложения или используйте промокод. Использование OFFLAG в России безопасно.",
         premium_text: 'Мы можем выделить отдельный сервер специально для вас и ваших близких. Чтобы подключить OFFLAG PREMIUM, напишите в поддержку ниже.',
         faq_title: "Возможные вопросы",
-        faq_q1: 'Поможет ли OFFLAG при блокировках?',
-        faq_a1: 'Да. Мы регулярно отслеживаем случаи блокировок и оперативно обновляем протоколы и правила маршрутизации. Система автоматически подстраивается под текущие ограничения: подбираются альтернативные маршруты и конфигурации, чтобы сохранить доступность сервисов и минимизировать задержки.',
+        faq_q1: 'Что такое OFFLAG?',
+        faq_a1: 'OFFLAG - это ускоритель интернета, предназначен для защиты вашего трафика, снижения задержек',
         faq_q2: 'На Android не работает OFFLAG - что делать?',
         faq_a2: 'Частая причина - включён DNS в настройках сети. Проверьте настройки Сети (Расширенные настройки) и отключите любые кастомные DNS / «Private DNS». После этого перезапустите приложение. Если проблема остаётся - напишите нам в поддержку, укажите модель устройства и краткое описание ошибки.',
         faq_q3: 'Хочу быть вашим клиентом на macOS или Linux',
@@ -1084,11 +947,11 @@
         phonePreview: 'App preview on phone',
         laptopPreview: 'App preview on laptop',
         whyHead: "How OFFLAG works",
-        whyText: "We have a convenient app. Top up your balance with any amount within the app or use a promo code. We don't collect personal data. No phone number is required for registration.",
+        whyText: "We have a convenient app. We don't collect personal data. No phone number is required for registration.",
         premium_text: 'We can provide a dedicated server specifically for you and your loved ones. To enable OFFLAG PREMIUM, contact support.',
         faq_title: "Frequently asked questions",
-        faq_q1: 'Will OFFLAG help with blocks?',
-        faq_a1: 'Yes. We continuously monitor blocking events and promptly update protocols and routing rules. The system adapts to restrictions automatically selecting alternative routes and configurations to keep services reachable and to minimize latency.',
+        faq_q1: 'Will OFFLAG help with latency?',
+        faq_a1: 'We promptly update protocols and routing rules. The system adapts to restrictions automatically selecting alternative routes and configurations to keep services reachable and to minimize latency.',
         faq_q2: 'OFFLAG not working on Android - what should I check?',
         faq_a2: 'A common cause is a custom or private DNS set in the device network settings. Check your Wi-Fi advanced settings and disable any custom DNS / “Private DNS". Restart the app afterwards. If the issue persists, contact support and include your device model and a short error description.',
         faq_q3: 'I want to be your client on macOS or Linux',
